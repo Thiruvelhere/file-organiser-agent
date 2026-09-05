@@ -212,11 +212,16 @@ agent = Agent(
 # --------------------------------------------------
 # Run the agent
 # --------------------------------------------------
+directory = input("Enter the directory to clean: ").strip()
+directory = os.path.abspath(directory)
 
-response = agent("""
+if not os.path.isdir(directory):
+    print(f"Directory does not exist: {directory}")
+    exit()
+response = agent(f"""
 Take responsibility for cleaning up:
 
-C:/Users/sibir/Desktop/agent_test/messy
+{directory}
 
 Inspect the workspace first and improve its organization so that a developer could easily understand where everything belongs.
 
