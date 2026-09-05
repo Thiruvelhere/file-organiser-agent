@@ -1,10 +1,10 @@
-# File Organiser Agent 🗂️🤖
+# File Organiser Agent 
 
 An intelligent, autonomous file organization agent built with the **Strands Agents SDK**. The agent leverages LLMs to inspect messy directories, categorize files by type or context, create target directories, move files safely, and verify filesystem state upon completion.
 
 ---
 
-## 🚀 Features
+##  Features
 
 - **Autonomous Decision Making**: Uses LLMs to inspect directory structures and decide how best to organize files.
 - **Strict Verification & Safety**: Verifies that every file move succeeds and confirms resulting directory states.
@@ -21,7 +21,7 @@ An intelligent, autonomous file organization agent built with the **Strands Agen
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - **Python**: 3.10 or higher
 - **OS**: Windows (PowerShell support built-in)
@@ -31,7 +31,7 @@ An intelligent, autonomous file organization agent built with the **Strands Agen
 
 ---
 
-## 🛠️ Installation
+##  Installation
 
 1. **Clone the repository**:
    ```bash
@@ -71,7 +71,7 @@ $env:GROQ_API_KEY = "your_groq_api_key"
 
 ---
 
-## 🏃 Usage
+##  Usage
 
 ### 1. Running with Groq (`grok_agent.py`)
 Run the cloud-powered agent:
@@ -92,7 +92,7 @@ python file_organiser.py
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 ├── .gitignore          # Git ignore rules for venv, cache, and secrets
@@ -104,7 +104,7 @@ python file_organiser.py
 
 ---
 
-## 🛡️ Safety & Safeguards
+##  Safety & Safeguards
 
 - **No Destructive Operations**: The agent has no file deletion or file truncation tools.
 - **Pre-Execution Check**: Verifies existence of source files before attempting any move.
