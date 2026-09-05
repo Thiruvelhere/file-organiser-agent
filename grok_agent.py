@@ -119,66 +119,26 @@ def move_file(source: str, destination_folder: str) -> str:
 # Groq / Grok model configuration
 # --------------------------------------------------
 
-api_key = (
-    os.environ.get("GROQ_API_KEY")
-    or os.environ.get("GROK_API_KEY")
-    or os.environ.get("XAI_API_KEY")
-)
+api_key = os.environ.get("GROQ_API_KEY")
 
 if not api_key:
     raise ValueError(
-        "No API key found. Please set GROQ_API_KEY in your environment or in a .env file:\n"
-        "  PowerShell: $env:GROQ_API_KEY = \"your_groq_api_key\"\n"
-        "  CMD:        set GROQ_API_KEY=your_groq_api_key\n"
-        "  .env file:  GROQ_API_KEY=your_groq_api_key"
+        "No API key found. Please set GROQ_API_KEY in your environment or in a .env file."
     )
 
-if api_key.startswith("xai-"):
-    base_url = "https://api.x.ai/v1"
-    model_id = os.environ.get("GROK_MODEL", "grok-2-latest")
-else:
-    base_url = "https://api.groq.com/openai/v1"
-    model_id = os.environ.get("GROQ_MODEL")
-    if not model_id:
-        try:
-            from openai import OpenAI
-            test_client = OpenAI(api_key=api_key, base_url=base_url)
-            available = [m.id for m in test_client.models.list().data]
-            print(f"Available models: {available}")
-
-            # Filter out non-chat / specialized models
-            chat_candidates = [
-                m for m in available
-                if not any(x in m.lower() for x in ["whisper", "orpheus", "vision", "guard", "embed", "tts", "safeguard", "canopy"])
-            ]
-
-            preferred_patterns = [
-                "llama-3.1-8b-instant",
-                "llama-3.3-70b-versatile",
-                "llama-3.1-8b",
-                "llama-3.3-70b",
-                "llama3-70b-8192",
-                "llama3-8b-8192",
-                "gpt-oss",
-                "mixtral",
-                "llama",
-            ]
-
-            for pattern in preferred_patterns:
-                match = next((m for m in chat_candidates if pattern in m.lower()), None)
-                if match:
-                    model_id = match
-                    break
-
-            if not model_id and chat_candidates:
-                model_id = chat_candidates[0]
-        except Exception as e:
-            print(f"Warning fetching models: {e}")
-
-        if not model_id:
-            model_id = "llama-3.1-8b-instant"
+base_url = "https://api.groq.com/openai/v1"
+model_id = "openai/gpt-oss-120b"
 
 print(f"Using provider at {base_url} with model: {model_id}")
+
+model = OpenAIModel(
+    client_args={
+        "api_key": api_key,
+        "base_url": base_url
+    },
+    model_id=model_id
+)
+
 
 model = OpenAIModel(
     client_args={
