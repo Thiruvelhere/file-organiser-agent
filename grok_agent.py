@@ -139,7 +139,6 @@ model = OpenAIModel(
     model_id=model_id
 )
 
-
 model = OpenAIModel(
     client_args={
         "api_key": api_key,
